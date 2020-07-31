@@ -19,8 +19,11 @@ public class RedisClusterApplicationTests {
     RedisTemplate redisTemplate;
 
     @Test
-    public  void test1(){
-        redisTemplate.opsForValue().set("test","test");
+    public  void testCluster(){
+        //redisTemplate.opsForValue().set("cluster","hello cluster");
+        String value= (String) redisTemplate.opsForValue().get("cluster");
+
+        System.out.println(value);
     }
 
 
