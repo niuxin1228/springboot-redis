@@ -28,6 +28,7 @@ import java.util.Map;
  * @ClassName cn.saytime.web.UserController
  * @Description
  */
+//支持Restful的controller
 @RestController
 public class UserController {
 
