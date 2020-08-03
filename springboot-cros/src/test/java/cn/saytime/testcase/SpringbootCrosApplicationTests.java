@@ -1,9 +1,10 @@
-package cn.saytime;
+package cn.saytime.testcase;
 
-import org.junit.Test;
+import cn.saytime.Application;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.testng.annotations.Test;
 
-@SpringBootTest
+@SpringBootTest(classes = Application.class)
 public class SpringbootCrosApplicationTests {
 
 	@Test
