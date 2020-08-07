@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.2.RELEASE</version>
+		<version>2.1.8.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cn.saytime</groupId>
@@ -51,6 +51,36 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>com.uih.uplus</groupId>
+			<artifactId>common</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.10.uplus</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+		<groupId>io.springfox</groupId>
+		<artifactId>springfox-swagger2</artifactId>
+		<version>2.9.2</version>
+	    </dependency>
+	    <dependency>
+	    	<groupId>io.springfox</groupId>
+	    	<artifactId>springfox-swagger-ui</artifactId>
+	    	<version>2.9.2</version>
+	    </dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.9.11</version>
+			<scope>test</scope>
+		</dependency>
+
 
 		<!--<dependency>
 			<groupId>net.sf.json-lib</groupId>

@@ -11,7 +11,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
+//JsonResult是原来的前后端返回数据格式
 @SpringBootTest(classes = Application.class)
 public class JsonResultTestCase extends AbstractTestNGSpringContextTests {
     private static final IUihLogger logger = UihLoggerFactory.getUihLogger(JsonResultTestCase.class);
@@ -25,15 +25,16 @@ public class JsonResultTestCase extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testResultError1() {
-        String code = "34";
-
+        //String code = "68";
+        String code = "668";
         Result result = JsonResult.error(code,"global");
         Result result1 = new Result("U0099" + code, "global");
         Assert.assertEquals(result, result1);
     }
     @Test
     public void testResultError2() {
-        String code = "34";
+        String code = "68";
+        code = "69";
         String data = "xxx";
 
         Result result = JsonResult.error(code, data,"global");
