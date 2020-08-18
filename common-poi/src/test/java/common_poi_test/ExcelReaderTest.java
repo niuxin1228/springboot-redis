@@ -4,10 +4,7 @@ package common_poi_test;
 import com.sun.org.apache.xpath.internal.objects.XObject;
 import com.uih.uplus.common.utils.poi.excel.ExcelReader;
 import com.uih.uplus.common.utils.poi.excel.ExcelUtil;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -68,30 +65,50 @@ public class ExcelReaderTest {
     @Test
     public void ExcelreaderSuccess(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
-        Assert.assertNotNull(reader);
+        Cell cell=reader.getCell(0,0);
+        System.out.println(cell);
+        String act=cell.getStringCellValue();
+        Assert.assertEquals(act,"姓名");
     }
     @Test
     public void ExcelreaderSuccess2(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx",0);
-        Assert.assertNotNull(reader);
+        Cell cell=reader.getCell(0,1);
+        System.out.println(cell);
+        String act=cell.getStringCellValue();
+        Assert.assertEquals(act,"张三");
     }
     @Test
     public void ExcelreaderSuccess3(){
         File file=new File("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         ExcelReader reader = ExcelUtil.getReader(file);
-        Assert.assertNotNull(reader);
+        Cell cell=reader.getCell(0,1);
+        System.out.println(cell);
+        String act=cell.getStringCellValue();
+        Assert.assertEquals(act,"张三");
     }
     @Test
     public void ExcelreaderSuccess4(){
         File file=new File("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         ExcelReader reader = ExcelUtil.getReader(file,0);
-        Assert.assertNotNull(reader);
+        Cell cell=reader.getCell(0,0);
+        System.out.println(cell);
+        String act=cell.getStringCellValue();
+        Assert.assertEquals(act,"姓名");
     }
     @Test
     public void ExcelreaderSuccess5(){
         File file=new File("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         ExcelReader reader = ExcelUtil.getReader(file,"sheet1");
-        Assert.assertNotNull(reader);
+        Cell cell=reader.getCell(0,0);
+        System.out.println(cell);
+        String act=cell.getStringCellValue();
+        Assert.assertEquals(act,"姓名");
+        List<String> sheetnames = reader.getSheetNames();
+        System.out.println(sheetnames);
+        List<String> expect = new ArrayList<>();
+        expect.add("sheet1");
+        Assert.assertEquals(sheetnames,expect);
     }
     @Test
     public void ExcelreaderError(){
@@ -171,30 +188,40 @@ public class ExcelReaderTest {
     @Test
     public void ExcelreadSuccess(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
-        List<List<Object>> readAll = reader.read();
-        System.out.println(readAll);
-        Assert.assertNotNull(readAll);
+        List<List<Object>> read = reader.read();
+        System.out.println(read);
+        Cell cell=reader.getCell(1,0);
+        System.out.println(cell);
+        String act=cell.getStringCellValue();
+        Assert.assertEquals(act,"年龄");
     }
     @Test
     public void ExcelreadSuccess2(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         List<List<Object>> read = reader.read(1);
         System.out.println(read);
-        Assert.assertNotNull(read);
+        Cell cell=reader.getCell(0,1);
+        System.out.println(cell);
+        String act=cell.getStringCellValue();
+        Assert.assertEquals(act,"张三");
     }
     @Test
     public void ExcelreadSuccessStartRowIndex(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         List<List<Object>> readAll = reader.read(1,2);
         System.out.println(readAll);
-        Assert.assertNotNull(readAll);
+        Cell cell=reader.getCell(0,2);
+        System.out.println(cell);
+        String act=cell.getStringCellValue();
+        Assert.assertEquals(act,"李四");
     }
     @Test
     public void ExcelreadSuccessNotRow(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         List<List<Object>> readAll = reader.read(4,5);
         System.out.println(readAll);
-        Assert.assertNotNull(readAll);
+        List<List<Object>> expect=new ArrayList<>();
+        Assert.assertEquals(readAll,expect);
     }
     @Test
     public void ExcelreadErrorNoFile(){
@@ -273,7 +300,10 @@ public class ExcelReaderTest {
     public void ExcelreadSuccessAllIndex(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         List<Map<String,Object>> readAll = reader.read(1,2,3);
-        Assert.assertNotNull(readAll);
+        Cell cell=reader.getCell(0,2);
+        System.out.println(cell);
+        String act=cell.getStringCellValue();
+        Assert.assertEquals(act,"李四");
     }
     @Test
     public void ExcelreadError(){
@@ -304,50 +334,67 @@ public class ExcelReaderTest {
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         Workbook wb=reader.getWorkbook();
         System.out.println(wb);
-        Assert.assertNotNull(wb);
+        int number = wb.getNumberOfFontsAsInt();
+        Assert.assertEquals(number,1);
     }
     @Test
     public void ExcelreadRowSuccess(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         List<Object> readrow=reader.readRow(0);
-        Assert.assertNotNull(readrow);
+        System.out.println(readrow);
+        List<Object> expect=new ArrayList<>();
+        expect.add("姓名");
+        expect.add("年龄");
+        Assert.assertEquals(readrow,expect);
     }
     @Test
     public void ExcelreadRowSuccess2(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         List<Object> readrow=reader.readRow(111);
-        Assert.assertNotNull(readrow);
+        System.out.println(readrow);
+        List<Object> expect=new ArrayList<>();
+        Assert.assertEquals(readrow,expect);
     }
     @Test
     public void ExcelreadRowError(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         List<Object> readrow=reader.readRow(-1);
         System.out.println(readrow);
-        Assert.assertNotNull(readrow);
+        List<Object> expect=new ArrayList<>();
+        Assert.assertEquals(readrow,expect);
     }
     @Test
     public void ExcelreadsetIgnoreEmptyRowSuccess(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest.xlsx");
-        reader=reader.setIgnoreEmptyRow(false);
-        Assert.assertNotNull(reader);
+        reader.setIgnoreEmptyRow(true);
+        int rowCount = reader.getRowCount();
+        System.out.println(rowCount);
+        Assert.assertEquals(rowCount,7);
     }
     @Test
     public void ExcelreadsetIgnoreEmptyRowSuccess2(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest.xlsx");
-        reader=reader.setIgnoreEmptyRow(true);
-        Assert.assertNotNull(reader);
+        reader.setIgnoreEmptyRow(true);
+        Cell cell=reader.getCell(1,1);
+        System.out.println(cell);
+        String act=cell.getStringCellValue();
+        Assert.assertEquals(act,"bb");
     }
     @Test
     public void ExcelreadAsTextSuccess(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         String text=reader.readAsText(false);
-        Assert.assertNotNull(text);
+        System.out.println(text);
+        int length = text.length();
+        Assert.assertEquals(length,18);
     }
     @Test
     public void ExcelreadAsTextSuccess2(){
-        ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest.xlsx");
+        ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         String text=reader.readAsText(true);
-        Assert.assertNotNull(text);
+        System.out.println(text);
+        int length = text.length();
+        Assert.assertEquals(length,25);
     }
     @Test
     public void ExcelreadAsTextErrortxt(){
@@ -389,20 +436,23 @@ public class ExcelReaderTest {
     public void ExcelreadGetSheetsSuccess(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest11.xlsx");
         List<Sheet> list=reader.getSheets();
-        Assert.assertNotNull(list);
+        int size = list.size();
+        Assert.assertEquals(size,2);
     }
     @Test
     public void ExcelreadGetSheetsSuccess2(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
         List<Sheet> list=reader.getSheets();
-        Assert.assertNotNull(list);
+        int size = list.size();
+        Assert.assertEquals(size,1);
     }
     @Test
     public void ExcelreadGetSheetsErrorTxt(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest43.txt");
         List<Sheet> list=reader.getSheets();
         System.out.println(list);
-        Assert.assertNotNull(list);
+        int size = list.size();
+        Assert.assertEquals(size,1);
     }
     @Test
     public void ExcelreadGetSheetNamesSuccess(){
@@ -464,7 +514,8 @@ public class ExcelReaderTest {
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest4.xlsx");
         Map<String,String> mm=reader.getHeaderAlias();
         System.out.println(mm);
-        Assert.assertNotNull(mm);
+        Map<String,String> expect=new HashMap<>();
+        Assert.assertEquals(mm,expect);
     }
     @Test
     public void ExcelreadGetHeaderAliasSuccess2(){
@@ -488,26 +539,23 @@ public class ExcelReaderTest {
         Assert.assertEquals(mm,map);
     }
 
-
-
-
-
-
     @Test
     public void ExcelreadgetOrCreateCellSuccess(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest34.xlsx");
         Cell a=reader.getOrCreateCell(2,2);
         System.out.println(a);
+        String A=a.getStringCellValue();
         reader.close();
-        Assert.assertNotNull(a);
+        Assert.assertEquals(A,"cc2");
     }
     @Test
     public void ExcelreadgetOrCreateCellSuccess2(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest34.xlsx");
         Cell a=reader.getOrCreateCell(5,5);
         System.out.println(a);
+        String A=a.getStringCellValue();
         reader.close();
-        Assert.assertNotNull(a);
+        Assert.assertEquals(A,"");
     }
     @Test
     public void ExcelreadgetOrCreateCellError(){
@@ -525,9 +573,10 @@ public class ExcelReaderTest {
     public void ExcelreadgetOrCreateRowSuccess(){
         ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest34.xlsx");
         Row a=reader.getOrCreateRow(3);
-        System.out.println(a);
+        Cell cell = a.getCell(1);
+        String act=cell.getStringCellValue();
         reader.close();
-        Assert.assertNotNull(a);
+        Assert.assertEquals(act,"bb3");
     }
     @Test
     public void ExcelreadgetOrCreateRowError(){
