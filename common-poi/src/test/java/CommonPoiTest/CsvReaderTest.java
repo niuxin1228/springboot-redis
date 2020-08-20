@@ -1,15 +1,12 @@
 
-package common_poi_test;
+package CommonPoiTest;
 
-import com.jsoniter.spi.OmitValue;
 import com.uih.uplus.common.utils.csv.*;
 import com.uih.uplus.common.utils.io.FileUtil;
-import org.apache.commons.lang3.ObjectUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.File;
-import java.util.List;
 
 import static com.uih.uplus.common.utils.basic.CharsetUtil.CHARSET_GBK;
 import static com.uih.uplus.common.utils.basic.CharsetUtil.CHARSET_UTF_8;
@@ -21,60 +18,69 @@ import static com.uih.uplus.common.utils.basic.CharsetUtil.CHARSET_UTF_8;
 * */
 
 public class CsvReaderTest {
+    private File directory = new File("");
+    private String rootPath=directory.getAbsolutePath();
     @Test
     public void CsvReaderSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file("E:\\common_lib_test\\common-poi\\WriteCsvTest.csv"));
+        CsvData data=cr.read(FileUtil.file(filePath));
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write success!");
     }
     @Test
-    public void CsvReaderSuccess2(){
+    public void CsvReaderUtilSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
         CsvReader cr=CsvUtil.getReader();
-        CsvData data=cr.read(FileUtil.file("E:\\common_lib_test\\common-poi\\WriteCsvTest.csv"));
+        CsvData data=cr.read(FileUtil.file(filePath));
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write success!");
     }
     @Test
-    public void CsvReaderSuccess3(){
+    public void CsvReadercharsetSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file("E:\\common_lib_test\\common-poi\\WriteCsvTest.csv"),CHARSET_GBK);
+        CsvData data=cr.read(FileUtil.file(filePath),CHARSET_GBK);
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write success!");
     }
     @Test
-    public void CsvReaderSuccess4(){
+    public void CsvReaderfileSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
         CsvReader cr=new CsvReader();
-        File file=new File("E:\\common_lib_test\\common-poi\\WriteCsvTest.csv");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write success!");
     }
     @Test
-    public void CsvReaderSuccess5(){
+    public void CsvReaderfilecharsetSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
         CsvReader cr=new CsvReader();
-        File file=new File("E:\\common_lib_test\\common-poi\\WriteCsvTest.csv");
+        File file=new File(filePath);
         CsvData data=cr.read(file,CHARSET_UTF_8);
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write success!");
     }
     @Test
-    public void CsvReaderSuccess6(){
+    public void CsvReaderutilcharsetSuccess6(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
         CsvReader cr=CsvUtil.getReader();
-        CsvData data=cr.read(FileUtil.file("E:\\common_lib_test\\common-poi\\WriteCsvTest.csv"),CHARSET_GBK);
+        CsvData data=cr.read(FileUtil.file(filePath),CHARSET_GBK);
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write success!");
     }
     @Test
     public void CsvReaderErrorxlsx(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest1.xlsx";
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file("E:\\common_lib_test\\common-poi\\WriteCsvTest1.xlsx"));
+        CsvData data=cr.read(FileUtil.file(filePath));
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write error!");
@@ -105,10 +111,11 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderErrorEmptyNoFile(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest1111111111111111.csv";
         CsvData data=null;
         try {
             CsvReader cr=new CsvReader();
-            data=cr.read(FileUtil.file("E:\\common_lib_test\\common-poi\\WriteCsvTest111111111111111111111111.csv"));
+            data=cr.read(FileUtil.file(filePath));
             Assert.assertNull(data);
 
         } catch (Exception e) {
@@ -118,9 +125,10 @@ public class CsvReaderTest {
     @Test
     public void CsvReaderErrorFile(){
         CsvData data=null;
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest1111111111111.csv";
         try {
             CsvReader cr=new CsvReader();
-            File file=new File("E:\\common_lib_test\\common-poi\\WriteCsvTest1111111111111.csv");
+            File file=new File(filePath);
             data=cr.read(file,CHARSET_UTF_8);
             Assert.assertNull(data);
 
@@ -156,8 +164,9 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderErrorFliexlsx(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest1.xlsx";
         CsvReader cr=new CsvReader();
-        File file=new File("E:\\common_lib_test\\common-poi\\WriteCsvTest1.xlsx");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
@@ -165,21 +174,23 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfigSetContainsHeaderSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines5.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setContainsHeader(true);
         CsvReader cr=new CsvReader(config);
-        File file=new File("E:\\common_lib_test\\common-poi\\CsvWriterlines5.csv");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         System.out.println(data.getRows());
         System.out.println(data.getRowCount());
         Assert.assertEquals(data.getRowCount(),1);
     }
     @Test
-    public void CsvReaderConfigSetContainsHeaderSuccess2(){
+    public void CsvReaderConfignotSetContainsHeaderSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines5.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setContainsHeader(false);
         CsvReader cr=new CsvReader(config);
-        File file=new File("E:\\common_lib_test\\common-poi\\CsvWriterlines5.csv");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         System.out.println(data.getRows());
         System.out.println(data.getRowCount());
@@ -187,75 +198,82 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfigSetSkipEmptyRowsSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines5.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setSkipEmptyRows(true);
         CsvReader cr=new CsvReader(config);
-        File file=new File("E:\\common_lib_test\\common-poi\\CsvWriterlines5.csv");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         System.out.println(data.getRows());
         System.out.println(data.getRowCount());
         Assert.assertEquals(data.getRowCount(),2);
     }
     @Test
-    public void CsvReaderConfigSetSkipEmptyRowsSuccess2(){
+    public void CsvReaderConfignotSetSkipEmptyRowsSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines5.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setSkipEmptyRows(false);
         CsvReader cr=new CsvReader(config);
-        File file=new File("E:\\common_lib_test\\common-poi\\CsvWriterlines5.csv");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         System.out.println(data.getRows());
         System.out.println(data.getRowCount());
         Assert.assertEquals(data.getRowCount(),3);
     }
     @Test
-    public void CsvReaderConfigSetSkipEmptyRowsSuccess3(){
+    public void CsvReaderConfignotSetSkipEmptyRowsbeyondSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setSkipEmptyRows(false);
         CsvReader cr=new CsvReader(config);
-        File file=new File("E:\\common_lib_test\\common-poi\\CsvWriterlines2.csv");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         String ss=data.getRow(2).get(5);
         Assert.assertEquals(ss,null);
     }
     @Test
-    public void CsvReaderConfigSetSkipEmptyRowsSuccess4(){
+    public void CsvReaderConfigSetSkipEmptyRowsrowSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setSkipEmptyRows(false);
         CsvReader cr=new CsvReader(config);
-        File file=new File("E:\\common_lib_test\\common-poi\\CsvWriterlines2.csv");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         String ss=data.getRow(1).get(1);
         Assert.assertEquals(ss,null);
     }
     @Test
-    public void CsvReaderConfigSetSkipEmptyRowsSuccess5(){
+    public void CsvReaderConfigSetSkipEmptyRowstrueSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setSkipEmptyRows(true);
         CsvReader cr=new CsvReader(config);
-        File file=new File("E:\\common_lib_test\\common-poi\\CsvWriterlines2.csv");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         String ss=data.getRow(1).get(1);
         Assert.assertEquals(ss,"b2");
     }
     @Test
-    public void CsvReaderConfigsetErrorOnDifferentFieldCountSuccess(){
+    public void CsvReaderConfigsetErrorOnDifferentFieldCountfalseSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setErrorOnDifferentFieldCount(false);
         CsvReader cr=new CsvReader(config);
-        File file=new File("E:\\common_lib_test\\common-poi\\CsvWriterlines2.csv");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         System.out.println(data.getRows());
         System.out.println(data.getRowCount());
         Assert.assertEquals(data.getRowCount(),3);
     }
     @Test
-    public void CsvReaderConfigsetErrorOnDifferentFieldCountSuccess2(){
+    public void CsvReaderConfigsetErrorOnDifferentFieldCountSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
         CsvData data=null;
         try {
             CsvReadConfig config=new CsvReadConfig();
             config.setErrorOnDifferentFieldCount(true);
             CsvReader cr = new CsvReader();
-            File file=new File("E:\\common_lib_test\\common-poi\\CsvWriterlines2.csv");
+            File file=new File(filePath);
             data=cr.read(file);
             System.out.println(data.getRows());
             System.out.println(data.getRowCount());
@@ -265,11 +283,12 @@ public class CsvReaderTest {
         }
     }
     @Test
-    public void CsvReaderConfigsetErrorOnDifferentFieldCountSuccess3(){
+    public void CsvReaderConfigsetErrorOnDifferentFieldCountfalsexlsxSuccess(){
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines6.xlsx";
         CsvReadConfig config=new CsvReadConfig();
         config.setErrorOnDifferentFieldCount(false);
         CsvReader cr=new CsvReader(config);
-        File file=new File("E:\\common_lib_test\\common-poi\\CsvWriterlines6.xlsx");
+        File file=new File(filePath);
         CsvData data=cr.read(file);
         System.out.println(data.getRows());
         System.out.println(data.getRowCount());
