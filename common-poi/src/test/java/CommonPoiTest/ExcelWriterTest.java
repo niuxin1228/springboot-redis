@@ -1,27 +1,23 @@
 
-package common_poi_test;
+package CommonPoiTest;
 
 import com.uih.uplus.common.utils.basic.CollUtil;
 import com.uih.uplus.common.utils.poi.excel.ExcelReader;
 import com.uih.uplus.common.utils.poi.excel.ExcelUtil;
 import com.uih.uplus.common.utils.poi.excel.ExcelWriter;
-import org.apache.poi.ss.formula.functions.Column;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.util.CellUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 //如果不writer.close()释放空间，无法创建文件
 //写出集合数据
 public class ExcelWriterTest {
+    private File directory = new File("");
+    private String rootPath=directory.getAbsolutePath();
     @Test
     public void ExcelwriteSuccess() {
         //第一步创建一个要写入的数据集合
@@ -33,10 +29,11 @@ public class ExcelWriterTest {
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
         //第二步使用ExcelWriter写出数据到文件
         //通过工具类创建writer
-        ExcelWriter writer = ExcelUtil.getWriter("E:\\common_lib_test\\common-poi\\writeExcelTest19.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest19.xlsx";
+        ExcelWriter writer = ExcelUtil.getWriter(filePath);
         writer.write(rows, true);
         writer.close();
-        ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest19.xlsx");
+        ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> aa = reader.readRow(2);
         System.out.println(aa);
         List<Object> bb = new ArrayList<Object>();
@@ -58,10 +55,11 @@ public class ExcelWriterTest {
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
         //第二步使用ExcelWriter写出数据到文件
         //通过工具类创建writer
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest19.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest19.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.close();
-        ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest19.xlsx");
+        ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> aa = reader.readRow(3);
         System.out.println(aa);
         List<Object> bb = new ArrayList<Object>();
@@ -73,7 +71,7 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteNewSuccess2() {
+    public void ExcelwriteNewSuccessBeyond() {
         //第一步创建一个要写入的数据集合
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
@@ -83,10 +81,11 @@ public class ExcelWriterTest {
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
         //第二步使用ExcelWriter写出数据到文件
         //通过工具类创建writer
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest99.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest99.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.close();
-        ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest99.xlsx");
+        ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> aa = reader.readRow(5);
         System.out.println(aa);
         List<Object> bb = new ArrayList<Object>();
@@ -179,10 +178,11 @@ public class ExcelWriterTest {
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = ExcelUtil.getWriter("E:\\common_lib_test\\common-poi\\writeExcelTesttxt.txt");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTesttxt.txt";
+        ExcelWriter writer = ExcelUtil.getWriter(filePath);
         writer.write(rows, true);
         writer.close();
-        ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTesttxt.txt");
+        ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> aa = reader.readRow(3);
         System.out.println(aa);
         List<Object> bb = new ArrayList<Object>();
@@ -201,9 +201,10 @@ public class ExcelWriterTest {
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTesttxt.txt");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTesttxt.txt";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
-        ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTesttxt.txt");
+        ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> aa = reader.readRow(4);
         System.out.println(aa);
         List<Object> bb = new ArrayList<Object>();
@@ -215,34 +216,36 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteSetnameSheetSuccess() {
+    public void ExcelwriteSetSheetStringSuccess() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest11.xlsx");
-        writer.setSheet("切换到新sheet，sheet2");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest11.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
+        writer.setSheet("添加一个新的sheet，设置为这个sheetname");
         writer.close();
-        ExcelReader reader = ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest11.xlsx");
+        ExcelReader reader = ExcelUtil.getReader(filePath);
         List<String> sheetnames = reader.getSheetNames();
         System.out.println(sheetnames);
         List<String> expect = new ArrayList<>();
         expect.add("sheet1");
-        expect.add("切换到新sheet，sheet2");
+        expect.add("添加一个新的sheet，设置为这个sheetname");
         Assert.assertEquals(sheetnames, expect);
     }
 
     @Test
-    public void ExcelwriteSetnameSheetSuccess2() {
+    public void ExcelwriteSetSheetintSuccess() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest10.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest10.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.setSheet(1);
         List<String> sheetName = writer.getSheetNames();
         System.out.println(sheetName);
@@ -254,39 +257,21 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteSetnameSheetSuccess3() {
+    public void ExcelwriteSetSheet0Success() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest98.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest98.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.setSheet(0);
         List<String> sheetName = writer.getSheetNames();
         System.out.println(sheetName);
         writer.close();
         List<String> expect = new ArrayList<>();
         expect.add("sheet1");
-        Assert.assertEquals(sheetName, expect);
-    }
-
-    @Test
-    public void ExcelwriteSetnameSheetSuccess4() {
-        List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
-        List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
-        List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
-        List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
-        List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
-        List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest97.xlsx");
-        writer.setSheet("添加一个新的sheet，设置为这个sheetname");
-        List<String> sheetName = writer.getSheetNames();
-        System.out.println(sheetName);
-        writer.close();
-        List<String> expect = new ArrayList<>();
-        expect.add("sheet1");
-        expect.add("添加一个新的sheet，设置为这个sheetname");
         Assert.assertEquals(sheetName, expect);
     }
 
@@ -298,7 +283,8 @@ public class ExcelWriterTest {
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest97.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest97.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.setSheet("添加一个新的sheet，设置为这个sheetname");
         List<String> sheetName = writer.getSheetNames();
         System.out.println(sheetName);
@@ -318,7 +304,8 @@ public class ExcelWriterTest {
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest9.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest9.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.setSheet(-1);
         List<String> sheetName = writer.getSheetNames();
         System.out.println(sheetName);
@@ -337,7 +324,8 @@ public class ExcelWriterTest {
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest8.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest8.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         List<String> aa = null;
         List<String> list = null;
         if (aa != list) {
@@ -352,14 +340,15 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteRenameSheetSuccess2() {
+    public void ExcelwriteRenameSheetConstantSuccess() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest96.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest96.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         List<String> aa = null;
         List<String> list = null;
         writer.renameSheet("sheet1");
@@ -372,14 +361,15 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteRenameSheetSuccess3() {
+    public void ExcelwriteRenameSheetaddnumSuccess() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest6.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest6.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         List<String> aa = null;
         List<String> list = null;
         if (aa != list) {
@@ -389,6 +379,28 @@ public class ExcelWriterTest {
         }
         writer.close();
         Assert.assertEquals(aa, list);
+    }
+
+    @Test
+    public void ExcelwriteRenameSheetErrorNegative() {
+        List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
+        List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
+        List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
+        List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
+        List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
+        List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
+        ExcelWriter writer = null;
+        List<String> aa = null;
+        try {
+            String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest7.xlsx";
+            writer = new ExcelWriter(filePath);
+            writer.renameSheet(-1, "sheettest");
+            aa = writer.getSheetNames();
+            writer.close();
+        } catch (Exception e) {
+            Assert.assertNull(aa);
+        }
+        Assert.assertNull(aa);
     }
 
     @Test
@@ -402,28 +414,8 @@ public class ExcelWriterTest {
         ExcelWriter writer = null;
         List<String> aa = null;
         try {
-            writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest7.xlsx");
-            writer.renameSheet(-1, "sheettest");
-            aa = writer.getSheetNames();
-            writer.close();
-        } catch (Exception e) {
-            Assert.assertNull(aa);
-        }
-        Assert.assertNull(aa);
-    }
-
-    @Test
-    public void ExcelwriteRenameSheetError2() {
-        List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
-        List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
-        List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
-        List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
-        List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
-        List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = null;
-        List<String> aa = null;
-        try {
-            writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest7.xlsx");
+            String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest7.xlsx";
+            writer = new ExcelWriter(filePath);
             writer.renameSheet(1, "sheettest");
             aa = writer.getSheetNames();
             writer.close();
@@ -434,14 +426,15 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteautoSizeColumnSuccess() {
+    public void ExcelwriteautoSizeColumnAllSuccess() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest11.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest11.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.autoSizeColumnAll();
         writer.close();
@@ -449,14 +442,15 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteautoSizeColumnSuccess2() {
+    public void ExcelwriteautoSizeColumnSuccess() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest12.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest12.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.autoSizeColumn(2);
         writer.close();
@@ -471,7 +465,8 @@ public class ExcelWriterTest {
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest13.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest13.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.autoSizeColumn(10);
         writer.close();
@@ -486,7 +481,8 @@ public class ExcelWriterTest {
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest13.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest13.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         try {
             writer.autoSizeColumn(-1);
@@ -505,7 +501,8 @@ public class ExcelWriterTest {
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<String> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest14.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest14.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         int rownum = writer.getCurrentRow();
         System.out.println(rownum);
@@ -520,7 +517,8 @@ public class ExcelWriterTest {
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest15.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest15.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.passCurrentRow();
         int rownum = writer.getCurrentRow();
@@ -536,7 +534,8 @@ public class ExcelWriterTest {
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest16.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest16.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.passRows(100);
         int rownum = writer.getCurrentRow();
@@ -546,13 +545,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwritePassRowsSuccess2() {
+    public void ExcelwritePassRowsSuccessNegative() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest17.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest17.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.passRows(-1);
         int rownum = writer.getCurrentRow();
@@ -568,7 +568,8 @@ public class ExcelWriterTest {
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest18.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest18.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.setCurrentRow(-1);
         int rownum = writer.getCurrentRow();
@@ -584,7 +585,8 @@ public class ExcelWriterTest {
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest20.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest20.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.setColumnWidth(1, 100);
         writer.close();
@@ -592,13 +594,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteSetCurrentWidthSuccess2() {
+    public void ExcelwriteSetCurrentWidthNegativeSuccess() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest21.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest21.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.setColumnWidth(1, -100);
         writer.close();
@@ -606,13 +609,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteSetCurrentWidthSuccess3() {
+    public void ExcelwriteSetCurrentWidthSuccessColumnBeyond() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest21.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest21.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.setColumnWidth(5, 100);
         writer.close();
@@ -626,7 +630,8 @@ public class ExcelWriterTest {
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest22.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest22.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         try {
             writer.setColumnWidth(5, 288);
@@ -644,7 +649,8 @@ public class ExcelWriterTest {
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest23.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest23.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.setRowHeight(1, 50);
         writer.close();
@@ -652,13 +658,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteSetRowHeightSuccess2() {
+    public void ExcelwriteSetRowHeightNegativeSuccess() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest24.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest24.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.setRowHeight(1, -100);
         writer.close();
@@ -666,13 +673,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteSetRowHeightSuccess3() {
+    public void ExcelwriteSetRowHeightSuccessRownumNegative() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest25.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest25.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.setRowHeight(-1, 50);
         writer.close();
@@ -681,15 +689,16 @@ public class ExcelWriterTest {
 
     @Test
     public void ExcelwriteAddSelectSuccess() {
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest26.xlsx";
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest26.xlsx");
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.addSelect(1, 1, "下拉试试");
-        ExcelReader reader=ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest26.xlsx");
+        ExcelReader reader=ExcelUtil.getReader(filePath);
         Cell cell = reader.getCell(1, 1);
         String A=cell.getStringCellValue();
         System.out.println(cell);
@@ -699,18 +708,19 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteAddSelectError() {
+    public void ExcelwriteAddSelectNegativeError() {
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest27.xlsx";
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest27.xlsx");
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.addSelect(-1, -1, "下拉试试");
-        ExcelReader reader=ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest27.xlsx");
         String A=null;
         try {
+            ExcelReader reader=ExcelUtil.getReader(filePath);
             Cell cell = reader.getCell(-1, -1);
             A=cell.getStringCellValue();
             System.out.println(cell);
@@ -720,50 +730,50 @@ public class ExcelWriterTest {
             Assert.assertEquals(A,null);
         }
         writer.close();
-        reader.close();
         Assert.assertEquals(A,null);
     }
 
     @Test
     public void ExcelwriteMergeSuccess() {
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest28.xlsx";
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest28.xlsx");
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         String A=null;
         Cell cell=null;
-        ExcelReader reader=ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest28.xlsx");
-        cell = reader.getCell(2, 4);
-        A=cell.getStringCellValue();
-        System.out.println(cell);
-        System.out.println(A);
         try {
             writer.merge(2);
             writer.close();
-
+            ExcelReader reader=ExcelUtil.getReader(filePath);
+            cell = reader.getCell(2, 4);
+            A=cell.getStringCellValue();
+            System.out.println(cell);
+            System.out.println(A);
         } catch (Exception e) {
-            Assert.assertEquals(A,"");
+            Assert.assertEquals(A,null);
         }
-        Assert.assertEquals(A,"");
+        Assert.assertEquals(A,null);
     }
     @Test
-    public void ExcelwriteMergeSuccess2() {
+    public void ExcelwriteMergeSuccessgetCellBeyond() {
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest28.xlsx";
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest28.xlsx");
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         String A=null;
         Cell cell=null;
-        ExcelReader reader=ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest28.xlsx");
         try {
             writer.merge(2);
             writer.close();
+            ExcelReader reader=ExcelUtil.getReader(filePath);
             cell = reader.getCell(4, 4);
             A=cell.getStringCellValue();
             System.out.println(cell);
@@ -776,13 +786,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteMergeSuccess3() {
+    public void ExcelwriteMergeSuccessContent() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest29.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest29.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         ExcelReader reader=null;
         Cell cell=null;
@@ -791,7 +802,7 @@ public class ExcelWriterTest {
             writer.merge(2, "测试", true);
             writer.close();
         } catch (Exception e) {
-            reader=ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest29.xlsx");
+            reader=ExcelUtil.getReader(filePath);
             cell = reader.getCell(1, 4);
             A=cell.getStringCellValue();
             System.out.println(cell);
@@ -802,13 +813,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteMergeSuccess4() {
+    public void ExcelwriteMergeSuccessMoreparameters() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest30.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest30.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         ExcelReader reader=null;
         Cell cell=null;
@@ -828,13 +840,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteMergeError() {
+    public void ExcelwriteMerge0Error() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest31.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest31.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         try {
             writer.merge(0);
@@ -846,13 +859,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteMergeError2() {
+    public void ExcelwriteMergeFirstEqualLastError() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest32.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest32.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         try {
             writer.merge(2, 2, 2, 2, "测试", true);
@@ -864,13 +878,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteMergeError3() {
+    public void ExcelwriteMergeLast0Error() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest33.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest33.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         try {
             writer.merge(0, "测试", true);
@@ -888,7 +903,8 @@ public class ExcelWriterTest {
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest34.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         Cell a = writer.getOrCreateCell(2, 2);
         writer.close();
@@ -896,13 +912,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwritegetOrCreateCellSuccess2() {
+    public void ExcelwritegetOrCreateCellSuccessBeyond() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest35.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest35.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         Cell a = writer.getOrCreateCell(5, 5);
         String A=a.getStringCellValue();
@@ -913,13 +930,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwritegetOrCreateCellError() {
+    public void ExcelwritegetOrCreateCellNegativeError() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest36.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest36.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         Cell a = null;
         try {
@@ -938,7 +956,8 @@ public class ExcelWriterTest {
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest37.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest37.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         Row a = writer.getOrCreateRow(3);
         writer.close();
@@ -946,13 +965,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwritegetOrCreateRowError() {
+    public void ExcelwritegetOrCreateRowNegativeError() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest38.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest38.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         Row a = null;
         try {
@@ -965,13 +985,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwritegetColumnCountSuccess() {
+    public void ExcelwritegetColumnCountdefaultSuccess() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1", "ee1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest39.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest39.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         int num = writer.getColumnCount();
         writer.close();
@@ -979,13 +1000,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwritegetColumnCountSuccess2() {
+    public void ExcelwritegetColumnCountSuccess() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1", "ee1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest40.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest40.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         int num = writer.getColumnCount(1);
         writer.close();
@@ -993,13 +1015,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwritegetColumnCountError() {
+    public void ExcelwritegetColumnCountBeyondError() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1", "ee1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest41.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest41.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         int num = writer.getColumnCount(5);
         writer.close();
@@ -1007,13 +1030,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwritegetColumnCountError2() {
+    public void ExcelwritegetColumnCountNegativeError() {
         List<String> row1 = CollUtil.newArrayList("aa", "bb", "cc", "dd");
         List<String> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1", "ee1");
         List<String> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2");
         List<String> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3");
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest42.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest42.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         int num = writer.getColumnCount(-1);
         writer.close();
@@ -1027,7 +1051,8 @@ public class ExcelWriterTest {
         List<String> row3 = CollUtil.newArrayList();
         List<String> row4 = CollUtil.newArrayList();
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest43.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest43.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         int num = writer.getRowCount();
         writer.close();
@@ -1041,7 +1066,8 @@ public class ExcelWriterTest {
         List<String> row3 = CollUtil.newArrayList();
         List<String> row4 = CollUtil.newArrayList();
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest43.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest43.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         boolean xlsx = writer.isXlsx();
         writer.close();
@@ -1049,13 +1075,14 @@ public class ExcelWriterTest {
     }
 
     @Test
-    public void ExcelwriteisXlsxSuccess2() {
+    public void ExcelwriteisXlsxSuccesstxt() {
         List<String> row1 = CollUtil.newArrayList();
         List<String> row2 = CollUtil.newArrayList();
         List<String> row3 = CollUtil.newArrayList();
         List<String> row4 = CollUtil.newArrayList();
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4);
-        ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\common-poi\\writeExcelTest43.txt");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest43.txt";
+        ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         boolean xlsx = writer.isXlsx();
         writer.close();
@@ -1073,9 +1100,8 @@ public class ExcelWriterTest {
         List<List<String>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
         //第二步使用ExcelWriter写出数据到文件
         //通过工具类创建writer
-        ExcelWriter writer = ExcelUtil.getWriter("E:\\common_lib_test\\common-poi\\writeExcelTest.xlsx");
-        //通过构造方法创建writer
-        //ExcelWriter writer = new ExcelWriter("E:\\common_lib_test\\writeExcelTest.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         //跳过当前行，既第一行，非必须，在此演示用
         writer.passCurrentRow();
         //合并单元格后的标题行，使用默认标题样式
@@ -1102,14 +1128,15 @@ public class ExcelWriterTest {
         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) CollUtil.newArrayList(row1, row2);
         //第二步使用ExcelWriter写出数据到文件
         // 通过工具类创建writer
-        ExcelWriter writer = ExcelUtil.getWriter("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         // 合并单元格后的标题行，使用默认标题样式
         //writer.merge(row1.size() - 1, "测试名单");
         // 一次性写出内容，使用默认样式，强制输出标题
         writer.write(rows, true);
         // 关闭writer，释放内存
         writer.close();
-        ExcelReader reader=ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
+        ExcelReader reader=ExcelUtil.getReader(filePath);
         //Object o = reader.readCellValue(0, 0);
         Cell cell=reader.getCell(0,0);
         System.out.println(cell);
@@ -1128,7 +1155,8 @@ public class ExcelWriterTest {
         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) CollUtil.newArrayList(row1, row2);
         //第二步使用ExcelWriter写出数据到文件
         // 通过工具类创建writer
-        ExcelWriter writer = ExcelUtil.getWriter("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        ExcelWriter writer = new ExcelWriter(filePath);
         // 合并单元格后的标题行，使用默认标题样式
         //writer.merge(row1.size() - 1, "测试名单");
         // 一次性写出内容，使用默认样式，强制输出标题
@@ -1137,7 +1165,7 @@ public class ExcelWriterTest {
         writer.close();
         String A=null;
         try {
-            ExcelReader reader=ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeMapTest.xlsx");
+            ExcelReader reader=ExcelUtil.getReader(filePath);
             //Object o = reader.readCellValue(0, 0);
             Cell cell=reader.getCell(2,2);
             System.out.println(cell);
