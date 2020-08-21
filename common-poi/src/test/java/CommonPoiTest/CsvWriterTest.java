@@ -104,7 +104,7 @@ public class CsvWriterTest {
         String[] line = {"test_write success!utf-8,config"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file("E:\\common_lib_test\\common-poi\\WriteCsvTest3.csv"));
+        CsvData data=cr.read(FileUtil.file(filePath));
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write success!utf-8,config");
     }
@@ -190,7 +190,7 @@ public class CsvWriterTest {
         String[] line = {"test_write_util success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file("E:\\common_lib_test\\common-poi\\WriteCsvUtilTest.csv"));
+        CsvData data=cr.read(FileUtil.file(filePath));
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write_util success!");
     }
@@ -327,7 +327,7 @@ public class CsvWriterTest {
         Assert.assertEquals(ss,"c3");
     }
     @Test
-    public void CsvWriterlinesbeyondSuccess3()
+    public void CsvWriterlinesbeyondSuccess()
     {
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines7.csv";
         CsvWriter csvWriter=CsvUtil.getWriter(filePath,CHARSET_UTF_8);
@@ -358,7 +358,7 @@ public class CsvWriterTest {
         System.out.println(config);
         csvWriter.close();
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file("E:\\common_lib_test\\common-poi\\CsvWriterlines3.csv"));
+        CsvData data=cr.read(FileUtil.file(filePath));
         String ss=data.getRow(2).get(5);
         Assert.assertEquals(ss,null);
     }
