@@ -18,7 +18,7 @@ public class ExcelReaderTest {
     private String rootPath=directory.getAbsolutePath();
     @Test
     public void ExcelreaderSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         Cell cell=reader.getCell(0,0);
         System.out.println(cell);
@@ -27,7 +27,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreaderSheetSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath,0);
         Cell cell=reader.getCell(0,1);
         System.out.println(cell);
@@ -36,7 +36,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreaderfileSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         File file=new File(filePath);
         ExcelReader reader = ExcelUtil.getReader(file);
         Cell cell=reader.getCell(0,1);
@@ -46,7 +46,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreaderfilesheetSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         File file=new File(filePath);
         ExcelReader reader = ExcelUtil.getReader(file,0);
         Cell cell=reader.getCell(0,0);
@@ -56,7 +56,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreaderfilesheetnameSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         File file=new File(filePath);
         ExcelReader reader = ExcelUtil.getReader(file,"sheet1");
         Cell cell=reader.getCell(0,0);
@@ -71,7 +71,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadersheetBeyondError(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = null;
         try {
             reader = ExcelUtil.getReader(filePath,1);
@@ -82,7 +82,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreaderfilesheetBeyondError(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         File file=new File(filePath);
         ExcelReader reader = null;
         try {
@@ -105,7 +105,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadersheetNoExistError(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         File file=new File(filePath);
         ExcelReader reader = null;
         try {
@@ -128,7 +128,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreaderErrorNoxlsx(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.txt";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.txt";
         ExcelReader reader = null;
         try {
             reader = ExcelUtil.getReader(filePath);
@@ -151,7 +151,7 @@ public class ExcelReaderTest {
 
     @Test
     public void ExcelreadSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<List<Object>> read = reader.read();
         System.out.println(read);
@@ -162,7 +162,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadstartRowindexSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<List<Object>> read = reader.read(1);
         System.out.println(read);
@@ -173,7 +173,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadStartEndRowIndexSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<List<Object>> readAll = reader.read(1,2);
         System.out.println(readAll);
@@ -184,7 +184,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadSuccessNotRow(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<List<Object>> readAll = reader.read(4,5);
         System.out.println(readAll);
@@ -221,7 +221,7 @@ public class ExcelReaderTest {
     public void ExcelreadStartEndRowErrorTxt(){
         ExcelReader reader = null;
         List<List<Object>> readAll=null;
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.txt";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.txt";
         try {
             reader = ExcelUtil.getReader(filePath);
             readAll = reader.read(1,2);
@@ -234,7 +234,7 @@ public class ExcelReaderTest {
     public void ExcelreadStartRowErrorTxt(){
         ExcelReader reader = null;
         List<List<Object>> readAll=null;
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.txt";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.txt";
         try {
             reader = ExcelUtil.getReader(filePath);
             readAll = reader.read(1);
@@ -270,7 +270,7 @@ public class ExcelReaderTest {
 
     @Test
     public void ExcelreadSuccessAllIndex(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Map<String,Object>> readAll = reader.read(1,2,3);
         Cell cell=reader.getCell(0,2);
@@ -282,7 +282,7 @@ public class ExcelReaderTest {
     public void ExcelreadEndMorethanStartError(){
         ExcelReader reader = null;
         List<Map<String,Object>> readAll=null;
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         try {
             reader = ExcelUtil.getReader(filePath);
             readAll = reader.read(1,3,1);
@@ -295,7 +295,7 @@ public class ExcelReaderTest {
     public void ExcelreadErrorNegative(){
         ExcelReader reader = null;
         List<Map<String,Object>> readAll=null;
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         try {
             reader = ExcelUtil.getReader(filePath);
             readAll = reader.read(-1,1,3);
@@ -306,7 +306,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadGetWorkbookSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         Workbook wb=reader.getWorkbook();
         System.out.println(wb);
@@ -315,7 +315,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadRowSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> readrow=reader.readRow(0);
         System.out.println(readrow);
@@ -326,7 +326,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadRowToobigSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> readrow=reader.readRow(111);
         System.out.println(readrow);
@@ -335,7 +335,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadRowNegativeError(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> readrow=reader.readRow(-1);
         System.out.println(readrow);
@@ -344,7 +344,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadsetIgnoreEmptyRowSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         reader.setIgnoreEmptyRow(true);
         int rowCount = reader.getRowCount();
@@ -353,7 +353,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadsetIgnoreEmptyRowfalseSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         reader.setIgnoreEmptyRow(false);
         Cell cell=reader.getCell(1,1);
@@ -363,7 +363,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadAsTextSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         String text=reader.readAsText(false);
         System.out.println(text);
@@ -372,7 +372,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadAsTextaddsheetSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         String text=reader.readAsText(true);
         System.out.println(text);
@@ -383,7 +383,7 @@ public class ExcelReaderTest {
     public void ExcelreadAsTextErrortxt(){
         ExcelReader reader = null;
         String text=null;
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.txt";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.txt";
         try {
             reader = ExcelUtil.getReader(filePath);
             text=reader.readAsText(true);
@@ -406,21 +406,21 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadGetSheetCountSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         int num=reader.getSheetCount();
         Assert.assertEquals(num,1);
     }
     @Test
     public void ExcelreadGetmoreSheetCountSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest11.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest1111.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         int num=reader.getSheetCount();
         Assert.assertEquals(num,2);
     }
     @Test
     public void ExcelreadGetSheetsmoreSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest11.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest1111.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Sheet> list=reader.getSheets();
         int size = list.size();
@@ -428,7 +428,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadGetSheetsSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Sheet> list=reader.getSheets();
         int size = list.size();
@@ -436,7 +436,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadGetSheetsErrorTxt(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest43.txt";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest4343.txt";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Sheet> list=reader.getSheets();
         System.out.println(list);
@@ -445,7 +445,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadGetSheetNamesSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeMapTest999.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<String> li=reader.getSheetNames();
         List<String> li1=new ArrayList<String>();
@@ -455,7 +455,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadGetmoreSheetNamesSuccess2(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest11.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest1111.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<String> li=reader.getSheetNames();
         List<String> li1=new ArrayList<String>();
@@ -503,7 +503,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadGetHeaderAliasSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest3434.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         Map<String,String> mm=reader.getHeaderAlias();
         System.out.println(mm);
@@ -512,7 +512,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadMapSetGetHeaderAliasSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest3434.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         Map<String, String> map = new HashMap<String, String>();
         map.put("key1", "value1");
@@ -525,7 +525,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadSetGetHeaderAliasSuccess3(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest3434.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         Map<String, String> map = new HashMap<String, String>();
         reader.setHeaderAlias(map);
@@ -536,7 +536,7 @@ public class ExcelReaderTest {
 
     @Test
     public void ExcelreadgetOrCreateCellSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest3434.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         Cell a=reader.getOrCreateCell(2,2);
         System.out.println(a);
@@ -546,7 +546,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadgetOrCreateCellbeyondSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest3434.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         Cell a=reader.getOrCreateCell(5,5);
         System.out.println(a);
@@ -556,7 +556,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadgetOrCreateCellNegativeError(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest3434.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         Cell a=null;
         try {
@@ -569,7 +569,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadgetOrCreateRowSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest3434.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         Row a=reader.getOrCreateRow(3);
         Cell cell = a.getCell(1);
@@ -579,7 +579,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadgetOrCreateRowNegativeError(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest3434.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         Row a=null;
         try {
@@ -592,7 +592,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadgetColumnCountdefaultSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest3434.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         int num=reader.getColumnCount();
         reader.close();
@@ -600,7 +600,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadgetColumnCountrowSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest40.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest4040.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         int num=reader.getColumnCount(1);
         reader.close();
@@ -608,7 +608,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadgetColumnCountRowbeyondError(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest41.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest4141.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         int num=reader.getColumnCount(5);
         reader.close();
@@ -616,7 +616,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadgetColumnCountRowNegativeError(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest42.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest4242.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         int num=reader.getColumnCount(-1);
         reader.close();
@@ -624,7 +624,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadgetRowCountSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest43.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest4343.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         int num=reader.getRowCount();
         reader.close();
@@ -632,7 +632,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadisXlsxSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest34.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest3434.xlsx";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         boolean xlsx=reader.isXlsx();
         reader.close();
@@ -640,7 +640,7 @@ public class ExcelReaderTest {
     }
     @Test
     public void ExcelreadnotXlsxSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest43.txt";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"writeExcelTest4343.txt";
         ExcelReader reader = ExcelUtil.getReader(filePath);
         boolean xlsx=reader.isXlsx();
         reader.close();

@@ -22,7 +22,7 @@ public class CsvReaderTest {
     private String rootPath=directory.getAbsolutePath();
     @Test
     public void CsvReaderSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest999.csv";
         CsvReader cr=new CsvReader();
         CsvData data=cr.read(FileUtil.file(filePath));
         String ss=data.getRow(0).get(0);
@@ -31,7 +31,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderUtilSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest999.csv";
         CsvReader cr=CsvUtil.getReader();
         CsvData data=cr.read(FileUtil.file(filePath));
         String ss=data.getRow(0).get(0);
@@ -40,7 +40,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReadercharsetSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest999.csv";
         CsvReader cr=new CsvReader();
         CsvData data=cr.read(FileUtil.file(filePath),CHARSET_GBK);
         String ss=data.getRow(0).get(0);
@@ -49,7 +49,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderfileSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest999.csv";
         CsvReader cr=new CsvReader();
         File file=new File(filePath);
         CsvData data=cr.read(file);
@@ -59,7 +59,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderfilecharsetSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest999.csv";
         CsvReader cr=new CsvReader();
         File file=new File(filePath);
         CsvData data=cr.read(file,CHARSET_UTF_8);
@@ -69,7 +69,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderutilcharsetSuccess6(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest999.csv";
         CsvReader cr=CsvUtil.getReader();
         CsvData data=cr.read(FileUtil.file(filePath),CHARSET_GBK);
         String ss=data.getRow(0).get(0);
@@ -78,7 +78,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderErrorxlsx(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest1.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest998.xlsx";
         CsvReader cr=new CsvReader();
         CsvData data=cr.read(FileUtil.file(filePath));
         String ss=data.getRow(0).get(0);
@@ -164,7 +164,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderErrorFliexlsx(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest1.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest998.xlsx";
         CsvReader cr=new CsvReader();
         File file=new File(filePath);
         CsvData data=cr.read(file);
@@ -174,7 +174,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfigSetContainsHeaderSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines5.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines555.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setContainsHeader(true);
         CsvReader cr=new CsvReader(config);
@@ -186,7 +186,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfignotSetContainsHeaderSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines5.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines555.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setContainsHeader(false);
         CsvReader cr=new CsvReader(config);
@@ -198,7 +198,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfigSetSkipEmptyRowsSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines5.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines555.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setSkipEmptyRows(true);
         CsvReader cr=new CsvReader(config);
@@ -210,7 +210,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfignotSetSkipEmptyRowsSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines5.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines555.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setSkipEmptyRows(false);
         CsvReader cr=new CsvReader(config);
@@ -222,7 +222,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfignotSetSkipEmptyRowsbeyondSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines222.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setSkipEmptyRows(false);
         CsvReader cr=new CsvReader(config);
@@ -233,7 +233,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfigSetSkipEmptyRowsrowSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines222.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setSkipEmptyRows(false);
         CsvReader cr=new CsvReader(config);
@@ -244,7 +244,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfigSetSkipEmptyRowstrueSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines222.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setSkipEmptyRows(true);
         CsvReader cr=new CsvReader(config);
@@ -255,7 +255,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfigsetErrorOnDifferentFieldCountfalseSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines222.csv";
         CsvReadConfig config=new CsvReadConfig();
         config.setErrorOnDifferentFieldCount(false);
         CsvReader cr=new CsvReader(config);
@@ -267,7 +267,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfigsetErrorOnDifferentFieldCountSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines222.csv";
         CsvData data=null;
         try {
             CsvReadConfig config=new CsvReadConfig();
@@ -284,7 +284,7 @@ public class CsvReaderTest {
     }
     @Test
     public void CsvReaderConfigsetErrorOnDifferentFieldCountfalsexlsxSuccess(){
-        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines6.xlsx";
+        String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines666.xlsx";
         CsvReadConfig config=new CsvReadConfig();
         config.setErrorOnDifferentFieldCount(false);
         CsvReader cr=new CsvReader(config);
