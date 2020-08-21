@@ -107,9 +107,10 @@ public class ExcelWriterTest {
             writer.close();
 
         } catch (Exception e) {
-            Assert.assertNotNull(writer);
+            System.out.println(writer.getCurrentRow());
+            Assert.assertEquals(writer.getCurrentRow(),5);
         }
-        Assert.assertNotNull(writer);
+        Assert.assertEquals(writer.getCurrentRow(),5);
     }
 
     @Test
@@ -127,9 +128,9 @@ public class ExcelWriterTest {
             writer.close();
 
         } catch (Exception e) {
-            Assert.assertNotNull(writer);
+            Assert.assertEquals(writer.getCurrentRow(),5);
         }
-        Assert.assertNotNull(writer);
+        Assert.assertEquals(writer.getCurrentRow(),5);
     }
 
     @Test
@@ -146,9 +147,9 @@ public class ExcelWriterTest {
             writer.write(rows, true);
             writer.close();
         } catch (Exception e) {
-            Assert.assertNull(writer);
+            Assert.assertNotNull(rows);
         }
-        Assert.assertNull(writer);
+        Assert.assertNotNull(rows);
     }
 
     @Test
@@ -165,9 +166,9 @@ public class ExcelWriterTest {
             writer.write(rows, true);
             writer.close();
         } catch (Exception e) {
-            Assert.assertNull(writer);
+            Assert.assertNotNull(rows);
         }
-        Assert.assertNull(writer);
+        Assert.assertNotNull(rows);
     }
 
     @Test
@@ -829,14 +830,14 @@ public class ExcelWriterTest {
             writer.merge(1, 2, 1, 2, "测试", true);
             writer.close();
         } catch (Exception e) {
-            reader=ExcelUtil.getReader("E:\\common_lib_test\\common-poi\\writeExcelTest29.xlsx");
+            reader=ExcelUtil.getReader(filePath);
             cell = reader.getCell(1, 1);
             A=cell.getStringCellValue();
             System.out.println(cell);
             System.out.println(A);
-            Assert.assertEquals(A,"bb1");
+            Assert.assertEquals(A,"测试");
         }
-        Assert.assertEquals(A,"bb1");
+        Assert.assertEquals(A,"测试");
     }
 
     @Test
