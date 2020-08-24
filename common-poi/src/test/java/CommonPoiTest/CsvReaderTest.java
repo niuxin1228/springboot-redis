@@ -2,7 +2,6 @@
 package CommonPoiTest;
 
 import com.uih.uplus.common.utils.csv.*;
-import com.uih.uplus.common.utils.io.FileUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -24,7 +23,8 @@ public class CsvReaderTest {
     public void CsvReaderSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest999.csv";
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write success!");
@@ -33,7 +33,8 @@ public class CsvReaderTest {
     public void CsvReaderUtilSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest999.csv";
         CsvReader cr=CsvUtil.getReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write success!");
@@ -42,7 +43,8 @@ public class CsvReaderTest {
     public void CsvReadercharsetSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest999.csv";
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath),CHARSET_GBK);
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write success!");
@@ -71,7 +73,8 @@ public class CsvReaderTest {
     public void CsvReaderutilcharsetSuccess6(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest999.csv";
         CsvReader cr=CsvUtil.getReader();
-        CsvData data=cr.read(FileUtil.file(filePath),CHARSET_GBK);
+        File file=new File(filePath);
+        CsvData data=cr.read(file,CHARSET_GBK);
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write success!");
@@ -80,7 +83,8 @@ public class CsvReaderTest {
     public void CsvReaderErrorxlsx(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest998.xlsx";
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         System.out.println(data.getRow(0).get(0));
         Assert.assertEquals(ss,"test_write error!");
@@ -90,7 +94,8 @@ public class CsvReaderTest {
         CsvData data=null;
         try {
             CsvReader cr=new CsvReader();
-            data=cr.read(FileUtil.file("F:\\"));
+            File file=new File("F:\\");
+            data=cr.read(file);
             Assert.assertNull(data);
 
         } catch (Exception e) {
@@ -102,7 +107,8 @@ public class CsvReaderTest {
         CsvData data=null;
         try {
             CsvReader cr=new CsvReader();
-            data=cr.read(FileUtil.file(""));
+            File file=new File("");
+            data=cr.read(file);
             Assert.assertNull(data);
 
         } catch (Exception e) {
@@ -115,7 +121,8 @@ public class CsvReaderTest {
         CsvData data=null;
         try {
             CsvReader cr=new CsvReader();
-            data=cr.read(FileUtil.file(filePath));
+            File file=new File(filePath);
+            data=cr.read(file);
             Assert.assertNull(data);
 
         } catch (Exception e) {

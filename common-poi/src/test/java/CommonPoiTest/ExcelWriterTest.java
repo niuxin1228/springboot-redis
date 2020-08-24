@@ -35,6 +35,7 @@ public class ExcelWriterTest {
         writer.close();
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> aa = reader.readRow(2);
+        reader.close();
         System.out.println(aa);
         List<Object> bb = new ArrayList<Object>();
         bb.add("aa2");
@@ -61,6 +62,7 @@ public class ExcelWriterTest {
         writer.close();
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> aa = reader.readRow(3);
+        reader.close();
         System.out.println(aa);
         List<Object> bb = new ArrayList<Object>();
         bb.add("aa3");
@@ -87,6 +89,7 @@ public class ExcelWriterTest {
         writer.close();
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> aa = reader.readRow(5);
+        reader.close();
         System.out.println(aa);
         List<Object> bb = new ArrayList<Object>();
         Assert.assertEquals(aa, bb);
@@ -126,7 +129,6 @@ public class ExcelWriterTest {
             writer = new ExcelWriter("F:\\");
             writer.write(rows, true);
             writer.close();
-
         } catch (Exception e) {
             Assert.assertEquals(writer.getCurrentRow(),5);
         }
@@ -185,6 +187,7 @@ public class ExcelWriterTest {
         writer.close();
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> aa = reader.readRow(3);
+        reader.close();
         System.out.println(aa);
         List<Object> bb = new ArrayList<Object>();
         bb.add("aa3");
@@ -207,6 +210,7 @@ public class ExcelWriterTest {
         writer.write(rows, true);
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<Object> aa = reader.readRow(4);
+        reader.close();
         System.out.println(aa);
         List<Object> bb = new ArrayList<Object>();
         bb.add("aa4");
@@ -230,6 +234,7 @@ public class ExcelWriterTest {
         writer.close();
         ExcelReader reader = ExcelUtil.getReader(filePath);
         List<String> sheetnames = reader.getSheetNames();
+        reader.close();
         System.out.println(sheetnames);
         List<String> expect = new ArrayList<>();
         expect.add("sheet1");
@@ -699,12 +704,13 @@ public class ExcelWriterTest {
         ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.addSelect(1, 1, "下拉试试");
+        writer.close();
         ExcelReader reader=ExcelUtil.getReader(filePath);
         Cell cell = reader.getCell(1, 1);
+        reader.close();
         String A=cell.getStringCellValue();
         System.out.println(cell);
         System.out.println(A);
-        writer.close();
         Assert.assertEquals(A,"bb1");
     }
 
@@ -719,10 +725,12 @@ public class ExcelWriterTest {
         ExcelWriter writer = new ExcelWriter(filePath);
         writer.write(rows, true);
         writer.addSelect(-1, -1, "下拉试试");
+        writer.close();
         String A=null;
         try {
             ExcelReader reader=ExcelUtil.getReader(filePath);
             Cell cell = reader.getCell(-1, -1);
+            reader.close();
             A=cell.getStringCellValue();
             System.out.println(cell);
             System.out.println(A);
@@ -730,7 +738,6 @@ public class ExcelWriterTest {
         {
             Assert.assertEquals(A,null);
         }
-        writer.close();
         Assert.assertEquals(A,null);
     }
 
@@ -751,6 +758,7 @@ public class ExcelWriterTest {
             writer.close();
             ExcelReader reader=ExcelUtil.getReader(filePath);
             cell = reader.getCell(2, 4);
+            reader.close();
             A=cell.getStringCellValue();
             System.out.println(cell);
             System.out.println(A);
@@ -776,6 +784,7 @@ public class ExcelWriterTest {
             writer.close();
             ExcelReader reader=ExcelUtil.getReader(filePath);
             cell = reader.getCell(4, 4);
+            reader.close();
             A=cell.getStringCellValue();
             System.out.println(cell);
             System.out.println(A);
@@ -805,6 +814,7 @@ public class ExcelWriterTest {
         } catch (Exception e) {
             reader=ExcelUtil.getReader(filePath);
             cell = reader.getCell(1, 4);
+            reader.close();
             A=cell.getStringCellValue();
             System.out.println(cell);
             System.out.println(A);
@@ -828,16 +838,17 @@ public class ExcelWriterTest {
         String A=null;
         try {
             writer.merge(1, 2, 1, 2, "测试", true);
-            writer.close();
         } catch (Exception e) {
+            writer.close();
             reader=ExcelUtil.getReader(filePath);
             cell = reader.getCell(1, 1);
+            reader.close();
             A=cell.getStringCellValue();
             System.out.println(cell);
             System.out.println(A);
-            Assert.assertEquals(A,"测试");
+            Assert.assertEquals(A,"bb1");
         }
-        Assert.assertEquals(A,"测试");
+        Assert.assertEquals(A,"bb1");
     }
 
     @Test
@@ -1140,6 +1151,7 @@ public class ExcelWriterTest {
         ExcelReader reader=ExcelUtil.getReader(filePath);
         //Object o = reader.readCellValue(0, 0);
         Cell cell=reader.getCell(0,0);
+        reader.close();
         System.out.println(cell);
         String A=cell.getStringCellValue();
         Assert.assertEquals(A,"姓名");
@@ -1169,6 +1181,7 @@ public class ExcelWriterTest {
             ExcelReader reader=ExcelUtil.getReader(filePath);
             //Object o = reader.readCellValue(0, 0);
             Cell cell=reader.getCell(2,2);
+            reader.close();
             System.out.println(cell);
             A=cell.getStringCellValue();
         }

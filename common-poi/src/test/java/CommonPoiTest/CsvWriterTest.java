@@ -2,8 +2,8 @@
 package CommonPoiTest;
 
 import com.uih.uplus.common.utils.csv.*;
-import com.uih.uplus.common.utils.io.FileUtil;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -14,37 +14,50 @@ import static com.uih.uplus.common.utils.basic.CharsetUtil.*;
 public class CsvWriterTest {
     private File directory = new File("");
     private String rootPath=directory.getAbsolutePath();
+    private CsvWriter cw=null;
+
+    @AfterMethod
+    public void AfterMethod(){
+        try {
+            cw.close();
+        }catch(Exception e){
+
+        }
+    }
+
     @Test
     public void CsvWriterSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
-        CsvWriter cw=new CsvWriter(filePath);
+        cw=new CsvWriter(filePath);
         String[] line = {"test_write success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write success!");
-
     }
     @Test
     public void CsvWriterCoverpathSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
-        CsvWriter csvWriter = new CsvWriter(filePath);
+        cw = new CsvWriter(filePath);
         String[] line = {"coverpath test_write success!"};
-        csvWriter.write(line);
+        cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"coverpath test_write success!");
     }
     @Test
     public void CsvWriterCharsetSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
-        CsvWriter cw=new CsvWriter(filePath,CHARSET_UTF_8);
+        cw=new CsvWriter(filePath,CHARSET_UTF_8);
         String[] line = {"test_write success!utf-8"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write success!utf-8");
     }
@@ -52,11 +65,11 @@ public class CsvWriterTest {
     public void CsvWriterflieSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
         File file=new File(filePath);
-        CsvWriter cw=new CsvWriter(file);
+        cw=new CsvWriter(file);
         String[] line = {"test_write success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write success!");
     }
@@ -64,11 +77,11 @@ public class CsvWriterTest {
     public void CsvWriterfilecharsetSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
         File file=new File(filePath);
-        CsvWriter cw=new CsvWriter(file,CHARSET_UTF_8);
+        cw=new CsvWriter(file,CHARSET_UTF_8);
         String[] line = {"test_write success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write success!");
     }
@@ -76,22 +89,23 @@ public class CsvWriterTest {
     public void CsvWriterfileAppendSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
         File file=new File(filePath);
-        CsvWriter cw=new CsvWriter(file,CHARSET_UTF_8,true);
+        cw=new CsvWriter(file,CHARSET_UTF_8,true);
         String[] line = {"test_write success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write success!");
     }
     @Test
     public void CsvWriterAppendSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest2.csv";
-        CsvWriter cw=new CsvWriter(filePath,CHARSET_UTF_8,true);
+        cw=new CsvWriter(filePath,CHARSET_UTF_8,true);
         String[] line = {"test_write success!utf-8"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write success!utf-8");
     }
@@ -100,11 +114,12 @@ public class CsvWriterTest {
         CsvWriteConfig config=new CsvWriteConfig();
         config.setAlwaysDelimitText(true);
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest3.csv";
-        CsvWriter cw=new CsvWriter(filePath,CHARSET_UTF_8,true,config);
+        cw=new CsvWriter(filePath,CHARSET_UTF_8,true,config);
         String[] line = {"test_write success!utf-8,config"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write success!utf-8,config");
     }
@@ -114,106 +129,106 @@ public class CsvWriterTest {
         config.setAlwaysDelimitText(true);
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest.csv";
         File file=new File(filePath);
-        CsvWriter cw=new CsvWriter(file,CHARSET_UTF_8,true,config);
+        cw=new CsvWriter(file,CHARSET_UTF_8,true,config);
         String[] line = {"test_write success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write success!");
     }
     @Test
     public void CsvWriterErrorXlsx(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest1.xlsx";
-        CsvWriter cw=new CsvWriter(filePath);
+        cw=new CsvWriter(filePath);
         String[] line = {"test_write error!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write error!");
     }
     @Test
     public void CsvWriterErrorXlsxCharset(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest1.xlsx";
-        CsvWriter cw=new CsvWriter(filePath,CHARSET_GBK);
+        cw=new CsvWriter(filePath,CHARSET_GBK);
         String[] line = {"test_write error!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write error!");
-    }
+}
     @Test
     public void CsvWriterErrorXlsxAppend(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvTest1.xlsx";
-        CsvWriter cw=new CsvWriter(filePath,CHARSET_GBK,true);
+        cw=new CsvWriter(filePath,CHARSET_GBK,true);
         String[] line = {"test_write error!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write error!");
     }
     @Test
     public void CsvWriterErrorNoPath(){
-        CsvWriter cw=null;
         String[] line = {"test_write error!"};
         try {
             cw=new CsvWriter("F:\\");
             cw.write(line);
-            cw.close();
-
         } catch (Exception e) {
-            Assert.assertNull(cw);
+            Assert.assertNotNull(line);
         }
-        Assert.assertNull(cw);
+        Assert.assertNotNull(line);
     }
     @Test
     public void CsvWriterErrorEmptyPath(){
-        CsvWriter cw=null;
         String[] line = {"test_write error!"};
         try {
             cw=new CsvWriter("");
             cw.write(line);
-            cw.close();
-
         } catch (Exception e) {
-            Assert.assertNull(cw);
+            Assert.assertNotNull(line);
         }
-        Assert.assertNull(cw);
+        Assert.assertNotNull(line);
     }
     @Test
     public void CsvWriterUtilSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvUtilTest.csv";
-        CsvWriter cw=CsvUtil.getWriter(filePath,CHARSET_GBK);
+        cw=CsvUtil.getWriter(filePath,CHARSET_GBK);
         String[] line = {"test_write_util success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
+        System.out.println(ss);
         Assert.assertEquals(ss,"test_write_util success!");
     }
     @Test
     public void CsvWriterfileUtilSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvUtilTest.csv";
         File file=new File(filePath);
-        CsvWriter cw= CsvUtil.getWriter(file,CHARSET_GBK);
+        cw= CsvUtil.getWriter(file,CHARSET_GBK);
         String[] line = {"test_write_util success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write_util success!");
     }
     @Test
     public void CsvWriterUtilappendSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvUtilTest.csv";
-        CsvWriter cw=CsvUtil.getWriter(filePath,CHARSET_GBK,true);
+        cw=CsvUtil.getWriter(filePath,CHARSET_GBK,true);
         String[] line = {"test_write_util success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write_util success!");
     }
@@ -221,11 +236,11 @@ public class CsvWriterTest {
     public void CsvWriterfileUtilappendSuccess(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvUtilTest.csv";
         File file=new File(filePath);
-        CsvWriter cw= CsvUtil.getWriter(file,CHARSET_GBK,true);
+        cw= CsvUtil.getWriter(file,CHARSET_GBK,true);
         String[] line = {"test_write_util success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write_util success!");
     }
@@ -235,77 +250,74 @@ public class CsvWriterTest {
         config.setAlwaysDelimitText(true);
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvUtilTest.csv";
         File file=new File(filePath);
-        CsvWriter cw= CsvUtil.getWriter(file,CHARSET_GBK,true,config);
+        cw= CsvUtil.getWriter(file,CHARSET_GBK,true,config);
         String[] line = {"test_write_util success!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write_util success!");
     }
     @Test
     public void CsvWriterUtilErrorXlsx(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvUtilTest.xlsx";
-        CsvWriter cw=CsvUtil.getWriter(filePath,CHARSET_GBK);
+        cw=CsvUtil.getWriter(filePath,CHARSET_GBK);
         String[] line = {"test_write_util error!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write_util error!");
     }
     @Test
     public void CsvWriterUtilappendErrorXlsx(){
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"WriteCsvUtilTest.xlsx";
-        CsvWriter cw=CsvUtil.getWriter(filePath,CHARSET_GBK,true);
+        cw=CsvUtil.getWriter(filePath,CHARSET_GBK,true);
         String[] line = {"test_write_util error!"};
         cw.write(line);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"test_write_util error!");
     }
     @Test
     public void CsvWriterUtilErrorNoPath(){
-        CsvWriter cw=null;
         String[] line = {"test_write_util error!"};
         try {
             cw=CsvUtil.getWriter("F:\\",CHARSET_ISO_8859_1);
             cw.write(line);
-            cw.close();
-
         } catch (Exception e) {
-            Assert.assertNull(cw);
+            Assert.assertNotNull(line);
         }
-        Assert.assertNull(cw);
+        Assert.assertNotNull(line);
     }
     @Test
     public void CsvWriterUtilErrorEmptyPath(){
-        CsvWriter cw=null;
         String[] line = {"test_write error!"};
         try {
             cw=CsvUtil.getWriter("",CHARSET_ISO_8859_1);
             cw.write(line);
-            cw.close();
-
         } catch (Exception e) {
-            Assert.assertNull(cw);
+            Assert.assertNotNull(line);
         }
-        Assert.assertNull(cw);
+        Assert.assertNotNull(line);
     }
     @Test
     public void CsvWriterlinesSuccess()
     {
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines1.csv";
-        CsvWriter csvWriter=CsvUtil.getWriter(filePath,CHARSET_UTF_8);
-        csvWriter.write(
+        cw=CsvUtil.getWriter(filePath,CHARSET_UTF_8);
+        cw.write(
                 new String[] {"a1", "b1", "c1"},
                 new String[] {"a2", "b2", "c2"},
                 new String[] {"a3", "b3", "c3"}
         );
-        csvWriter.close();
+        cw.close();
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(0).get(0);
         Assert.assertEquals(ss,"a1");
     }
@@ -313,16 +325,17 @@ public class CsvWriterTest {
     public void CsvWriterlinesEmptyRowSuccess()
     {
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines2.csv";
-        CsvWriter csvWriter=CsvUtil.getWriter(filePath,CHARSET_UTF_8);
-        csvWriter.write(
+        cw=CsvUtil.getWriter(filePath,CHARSET_UTF_8);
+        cw.write(
                 new String[] {"a1", "b1", "c1"},
                 new String[] {},
                 new String[] {"a2", "b2", "c2","d2"},
                 new String[] {"a3", "b3", "c3"}
         );
-        csvWriter.close();
+        cw.close();
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(2).get(2);
         Assert.assertEquals(ss,"c3");
     }
@@ -330,16 +343,17 @@ public class CsvWriterTest {
     public void CsvWriterlinesbeyondSuccess()
     {
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines7.csv";
-        CsvWriter csvWriter=CsvUtil.getWriter(filePath,CHARSET_UTF_8);
-        csvWriter.write(
+        cw=CsvUtil.getWriter(filePath,CHARSET_UTF_8);
+        cw.write(
                 new String[] {"a1", "b1", "c1"},
                 new String[] {},
                 new String[] {"a2", "b2", "c2","d2"},
                 new String[] {"a3", "b3", "c3"}
         );
-        csvWriter.close();
+        cw.close();
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(2).get(5);
         Assert.assertEquals(ss,null);
     }
@@ -349,17 +363,19 @@ public class CsvWriterTest {
         CsvWriteConfig config=new CsvWriteConfig();
         config.setAlwaysDelimitText(true);
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines3.csv";
-        CsvWriter csvWriter=new CsvWriter(filePath,CHARSET_UTF_8,true,config);
-        csvWriter.write(
+        cw=new CsvWriter(filePath,CHARSET_UTF_8,true,config);
+        cw.write(
                 new String[] {"a1", "b1", "c1"},
                 new String[] {"a2", "b2", "c2"},
                 new String[] {"a3", "b3", "c3"}
         );
         System.out.println(config);
-        csvWriter.close();
+        cw.close();
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(2).get(5);
+        System.out.println(ss);
         Assert.assertEquals(ss,null);
     }
     @Test
@@ -368,16 +384,17 @@ public class CsvWriterTest {
         CsvWriteConfig config=new CsvWriteConfig();
         config.setAlwaysDelimitText(true);
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines3.csv";
-        CsvWriter csvWriter=new CsvWriter(filePath,CHARSET_UTF_8,true,config);
-        csvWriter.write(
+        cw=new CsvWriter(filePath,CHARSET_UTF_8,true,config);
+        cw.write(
                 new String[] {"a1", "b1", "c1"},
                 new String[] {"a2", "b2", "c2"},
                 new String[] {"a3", "b3", "c3"}
         );
         System.out.println(config);
-        csvWriter.close();
+        cw.close();
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(1).get(1);
         Assert.assertEquals(ss,"b2");
     }
@@ -389,15 +406,17 @@ public class CsvWriterTest {
                 new char[]{'\n'}
         );
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines4.csv";
-        CsvWriter csvWriter=new CsvWriter(filePath,CHARSET_UTF_8);
-        csvWriter.write(
+        cw=new CsvWriter(filePath,CHARSET_UTF_8);
+        cw.write(
                 new String[] {"a1", "b1", "c1"},
                 new String[] {"a2", "b2", "c2"},
                 new String[] {"a3", "b3", "c3"}
         );
+        cw.close();
         System.out.println(config);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(2).get(2);
         Assert.assertEquals(ss,"c3");
     }
@@ -409,15 +428,17 @@ public class CsvWriterTest {
                 new char[]{'\n'}
         );
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines5.csv";
-        CsvWriter csvWriter=new CsvWriter(filePath,CHARSET_UTF_8,false,config);
-        csvWriter.write(
+        cw=new CsvWriter(filePath,CHARSET_UTF_8,false,config);
+        cw.write(
                 new String[] {"a1", "b1", "c1"},
                 new String[] {},
                 new String[] {"a3", "b3", "c3"}
         );
+        cw.close();
         System.out.println(config);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(1).get(1);
         Assert.assertEquals(ss,"b3");
     }
@@ -429,15 +450,17 @@ public class CsvWriterTest {
                 new char[]{'\n'}
         );
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines6.csv";
-        CsvWriter csvWriter=new CsvWriter(filePath,CHARSET_UTF_8,false,config);
-        csvWriter.write(
+        cw=new CsvWriter(filePath,CHARSET_UTF_8,false,config);
+        cw.write(
                 new String[] {"a1", "b1", "c1"},
                 new String[] {},
                 new String[] {"a3", "b3", "c3"}
         );
+        cw.close();
         System.out.println(config);
         CsvReader cr=new CsvReader();
-        CsvData data=cr.read(FileUtil.file(filePath));
+        File file=new File(filePath);
+        CsvData data=cr.read(file);
         String ss=data.getRow(1).get(4);
         Assert.assertEquals(ss,null);
     }
@@ -449,18 +472,19 @@ public class CsvWriterTest {
                 new char[]{'\n'}
         );
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines8.xlsx";
-        CsvWriter csvWriter=new CsvWriter(filePath,CHARSET_UTF_8,false,config);
-        csvWriter.write(
+        cw=new CsvWriter(filePath,CHARSET_UTF_8,false,config);
+        cw.write(
                 new String[] {"a1", "b1", "c1"},
                 new String[] {},
                 new String[] {"a3", "b3", "c3"}
         );
         System.out.println(config);
-        csvWriter.close();
+        cw.close();
         String ss=null;
         try {
             CsvReader cr=new CsvReader();
-            CsvData data=cr.read(FileUtil.file(filePath));
+            File file=new File(filePath);
+            CsvData data=cr.read(file);
             ss=data.getRow(1).get(5);
             Assert.assertEquals(ss,null);
         } catch (Exception e) {
@@ -475,17 +499,19 @@ public class CsvWriterTest {
                 new char[]{'\n'}
         );
         String filePath=rootPath+File.separator+"TestFiles"+File.separator+"CsvWriterlines9.csv";
-        CsvWriter csvWriter=new CsvWriter(filePath,CHARSET_UTF_8,false,config);
-        csvWriter.write(
+        cw=new CsvWriter(filePath,CHARSET_UTF_8,false,config);
+        cw.write(
                 new String[] {"a1", "b1", "c1"},
                 new String[] {},
                 new String[] {"a3", "b3", "c3"}
         );
+        cw.close();
         System.out.println(config);
         String ss=null;
         try {
             CsvReader cr=new CsvReader();
-            CsvData data=cr.read(FileUtil.file(filePath));
+            File file=new File(filePath);
+            CsvData data=cr.read(file);
             ss=data.getRow(1).get(4);
             Assert.assertEquals(ss,null);
         } catch (Exception e) {
