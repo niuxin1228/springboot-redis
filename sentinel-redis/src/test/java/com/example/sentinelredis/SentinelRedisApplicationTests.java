@@ -2,6 +2,7 @@ package com.example.sentinelredis;
 
 import com.uih.uplus.common.utils.basic.EnvUtil;
 import com.uih.uplus.common.utils.cache.RedisLock;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,187 @@ public class SentinelRedisApplicationTests {
 	@Autowired
 	private RedisUtil redisUtil;
 
+
+	@Test
+	public void RedissetSuccess() {
+		redisUtil.set("first", "hello");
+		String value = (String) this.redisUtil.get("first");
+		Assert.assertEquals(value,"hello");
+	}
+	@Test
+	public void RedissetcoverSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("first", "hi");
+		String value = (String) this.redisUtil.get("first");
+		Assert.assertEquals(value,"hi");
+	}
+	@Test
+	public void RedissetnullError() {
+		String value=null;
+		try {
+			redisUtil.set("first", null);
+			value = (String) this.redisUtil.get("first");
+		}catch (Exception e){
+			Assert.assertEquals(value,null);
+		}
+		Assert.assertEquals(value,null);
+	}
+	@Test
+	public void RedissetmoreSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("second", "redisUtil");
+		String value = (String) this.redisUtil.get("second");
+		Assert.assertEquals(value,"redisUtil");
+	}
+	@Test
+	public void RedisremoveSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.remove("first");
+		String value = (String) this.redisUtil.get("first");
+		Assert.assertEquals(value,null);
+	}
+	@Test
+	public void RedisremovecoverSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("first", "hi");
+		redisUtil.remove("first");
+		String value = (String) this.redisUtil.get("first");
+		Assert.assertEquals(value,null);
+	}
+	@Test
+	public void RedisremoveoneSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("second", "redisUtil");
+		redisUtil.remove("first");
+		String value = (String) this.redisUtil.get("second");
+		Assert.assertEquals(value,"redisUtil");
+	}
+	@Test
+	public void RedisremovemoreSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("second", "redisUtil");
+		redisUtil.remove("first","second");
+		String value = (String) this.redisUtil.get("second");
+		Assert.assertEquals(value,null);
+	}
+	@Test
+	public void RedisremovePatternSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.removePattern("fi");
+		String value = (String) this.redisUtil.get("first");
+		Assert.assertEquals(value,null);
+	}
+	@Test
+	public void RedisremovePatterncoverSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("first", "hi");
+		redisUtil.removePattern("fi");
+		String value = (String) this.redisUtil.get("first");
+		Assert.assertEquals(value,null);
+	}
+	@Test
+	public void RedisremovePatternoneSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("second", "redisUtil");
+		redisUtil.removePattern("fi");
+		String valuea = (String) this.redisUtil.get("first");
+		String valueb = (String) this.redisUtil.get("second");
+		Assert.assertEquals(valuea,null);
+		Assert.assertEquals(valueb,"redisUtil");
+	}
+	@Test
+	public void RedisremovePatternmoreSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("second", "redisUtil");
+		redisUtil.removePattern("fi");
+		redisUtil.removePattern("on");
+		String valuea = (String) this.redisUtil.get("first");
+		String valueb = (String) this.redisUtil.get("second");
+		Assert.assertEquals(valuea,null);
+		Assert.assertEquals(valueb,null);
+	}
+	@Test
+	public void RedisexistsSuccess() {
+		redisUtil.set("first", "hello");
+		boolean first = redisUtil.exists("first");
+		Assert.assertEquals(first,true);
+	}
+	@Test
+	public void RedisexistsnullError() {
+		boolean first=false;
+		try {
+			redisUtil.set("first", null);
+			first = redisUtil.exists("first");
+		}catch (Exception e){
+			Assert.assertEquals(first,false);
+		}
+		Assert.assertEquals(first,false);
+	}
+	@Test
+	public void RedisexistscoverSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("first", "hi");
+		boolean first = redisUtil.exists("first");
+		Assert.assertEquals(first,true);
+	}
+	@Test
+	public void RedisexistsmoreSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("second", "redisUtil");
+		redisUtil.set("third", "world");
+		boolean first = redisUtil.exists("first");
+		boolean second = redisUtil.exists("second");
+		boolean third = redisUtil.exists("third");
+		Assert.assertEquals(first,true);
+		Assert.assertEquals(second,true);
+		Assert.assertEquals(third,true);
+	}
+	@Test
+	public void RedisexistsonenullSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("second", "redisUtil");
+		redisUtil.set("third", "world");
+		boolean first = redisUtil.exists("first");
+		boolean second = redisUtil.exists("second");
+		boolean forth = redisUtil.exists("forth");
+		Assert.assertEquals(first,true);
+		Assert.assertEquals(second,true);
+		Assert.assertEquals(forth,false);
+	}
+	@Test
+	public void RedisgetEmptySuccess() {
+		redisUtil.set("first", "hello");
+		String value = (String) this.redisUtil.get("eight");
+		Assert.assertEquals(value,null);
+	}
+	@Test
+	public void RedisgetkeyEmptySuccess() {
+		redisUtil.set("first", "hello");
+		Set<String> keys = redisUtil.getKeys("eight");
+		Assert.assertEquals(keys.toString(),"[]");
+	}
+	@Test
+	public void RedisgetkeySuccess() {
+		redisUtil.set("first", "hello");
+		Set<String> keys = redisUtil.getKeys("fi");
+		Assert.assertEquals(keys.toString(),"[first]");
+	}
+	@Test
+	public void RedisgetkeyendSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("second", "redisUtil");
+		Set<String> keys = redisUtil.getKeys("nd");
+		Assert.assertEquals(keys.toString(),"[second]");
+	}
+
 	@Test
 	public void test() {
 		/*redisTemplate.opsForValue().set("foo", "bar");
 		String value = (String) redisTemplate.opsForValue().get("foo");*/
 		//键值添加
-		redisUtil.set("first", "hello ");
-		redisUtil.set("first", "hi ");
-		redisUtil.set("second", "redisUtil ");
+		redisUtil.set("first", "hello");
+		redisUtil.set("first", "hi");
+		redisUtil.set("second", "redisUtil");
 		redisUtil.set("third", "world");
 		//读取缓存(覆盖)
 		String value = (String) this.redisUtil.get("first");
@@ -97,16 +271,16 @@ public class SentinelRedisApplicationTests {
 		String hashValue = (String) this.redisUtil.hmGet("hash1","job");
 
 
-		//Redis锁初始化：
-		RedisLock redisLock = new RedisLock("127.0.0.1", 6379, 2000, 100, "DisLock", "123456");
-		//获取锁：
-		while(!redisLock.lock("yourlockNo",1000*60, 5000)){
-			EnvUtil.sleep(1);
-		}
-		//释放锁：
-		while(!redisLock.unLock("yourlockNo")){
-			EnvUtil.sleep(1);
-		}
+//		//Redis锁初始化：
+//		RedisLock redisLock = new RedisLock("127.0.0.1", 6379, 2000, 100, "DisLock", "");
+//		//获取锁：
+//		while(!redisLock.lock("yourlockNo",1000*60, 5000)){
+//			EnvUtil.sleep(1);
+//		}
+//		//释放锁：
+//		while(!redisLock.unLock("yourlockNo")){
+//			EnvUtil.sleep(1);
+//		}
 	}
 
 }
