@@ -199,6 +199,13 @@ public class SentinelRedisApplicationTests {
 		Set<String> keys = redisUtil.getKeys("nd");
 		Assert.assertEquals(keys.toString(),"[second]");
 	}
+	@Test
+	public void RedisgetkeymoreSuccess() {
+		redisUtil.set("first", "hello");
+		redisUtil.set("second", "redisUtil");
+		Set<String> keys = redisUtil.getKeys("seconds");
+		Assert.assertEquals(keys.toString(),"[]");
+	}
 
 	@Test
 	public void test() {
