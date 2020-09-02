@@ -206,7 +206,128 @@ public class SentinelRedisApplicationTests {
 		Set<String> keys = redisUtil.getKeys("seconds");
 		Assert.assertEquals(keys.toString(),"[]");
 	}
-
+	@Test
+	public void RedishmSetSuccess() {
+		redisUtil.hmSet("hash1","name","nxx");
+		String hashValue = (String) this.redisUtil.hmGet("hash1","name");
+		Assert.assertEquals(hashValue,"nxx");
+	}
+	@Test
+	public void RedishmSetmoreSuccess() {
+		redisUtil.hmSet("hash1","name","nxx");
+		redisUtil.hmSet("hash2","sex","male");
+		String hashValue = (String) this.redisUtil.hmGet("hash2","sex");
+		Assert.assertEquals(hashValue,"male");
+	}
+	@Test
+	public void RedishmSetcoverSuccess() {
+		redisUtil.hmSet("hash1","name","nxx");
+		redisUtil.hmSet("hash1","name","nl");
+		String hashValue = (String) this.redisUtil.hmGet("hash1","name");
+		Assert.assertEquals(hashValue,"nl");
+	}
+	@Test
+	public void RedishmSetvaluenullSuccess() {
+		redisUtil.hmSet("hash1","name","");
+		String hashValue = (String) this.redisUtil.hmGet("hash1","name");
+		Assert.assertEquals(hashValue,"");
+	}
+	@Test
+	public void RedislPushSuccess() {
+		redisUtil.lPush("list1","nxx");
+		redisUtil.lPush("list1","123");
+		redisUtil.lPush("list1","aaa");
+		List<Object> list = new ArrayList<Object>();
+		list=redisUtil.lRange("list1",0,1);
+		Assert.assertEquals(list.size(),2);
+	}
+	@Test
+	public void RedislPushmoreSuccess() {
+		redisUtil.lPush("list1","nxx");
+		redisUtil.lPush("list1","123");
+		redisUtil.lPush("list1","aaa");
+		List<Object> list = new ArrayList<Object>();
+		list=redisUtil.lRange("list1",0,5);
+		Assert.assertEquals(list.size(),6);
+	}
+	@Test
+	public void RedislPush0Success() {
+		redisUtil.lPush("list1","nxx");
+		redisUtil.lPush("list1","123");
+		redisUtil.lPush("list1","aaa");
+		List<Object> list = new ArrayList<Object>();
+		list=redisUtil.lRange("list1",0,0);
+		Assert.assertEquals(list.size(),1);
+	}
+	@Test
+	public void RedislPushnegativeError() {
+		redisUtil.lPush("list1","nxx");
+		redisUtil.lPush("list1","123");
+		redisUtil.lPush("list1","aaa");
+		List<Object> list = new ArrayList<Object>();
+		list=redisUtil.lRange("list1",0,-1);
+		System.out.println(list);
+		Assert.assertNotEquals(list.size(),2);
+	}
+	@Test
+	public void RedisaddSuccess() {
+		redisUtil.add("set1","a");
+		redisUtil.add("set1","b");
+		redisUtil.add("set1","c");
+		Set<Object> set=redisUtil.setMembers("set1");
+		Assert.assertEquals(set.size(),4);
+	}
+	@Test
+	public void RedisaddemptySuccess() {
+		redisUtil.add("set1","");
+		Set<Object> set=redisUtil.setMembers("set1");
+		System.out.println(set);
+		Assert.assertEquals(set.size(),4);
+	}
+	@Test
+	public void RedisaddemptycoverSuccess() {
+		redisUtil.add("set1","a");
+		Set<Object> set=redisUtil.setMembers("set1");
+		System.out.println(set);
+		Assert.assertEquals(set.size(),4);
+	}
+	@Test
+	public void RediszAddSuccess() {
+		redisUtil.zAdd("setSort","basketball",12);
+		redisUtil.zAdd("setSort","football",2);
+		redisUtil.zAdd("setSort","baseball",24);
+		redisUtil.zAdd("setSort","pingPong",16);
+		Set<Object> setZ=redisUtil.rangeByScore("setSort",0,30);
+		Assert.assertEquals(setZ.size(),4);
+	}
+	@Test
+	public void RediszAddscore0Success() {
+		redisUtil.zAdd("setSort","basketball",12);
+		redisUtil.zAdd("setSort","football",2);
+		redisUtil.zAdd("setSort","baseball",24);
+		redisUtil.zAdd("setSort","pingPong",16);
+		Set<Object> setZ=redisUtil.rangeByScore("setSort",0,0);
+		Assert.assertEquals(setZ.size(),0);
+	}
+	@Test
+	public void RediszAddscorenegativeSuccess() {
+		redisUtil.zAdd("setSort","basketball",12);
+		redisUtil.zAdd("setSort","football",2);
+		redisUtil.zAdd("setSort","baseball",24);
+		redisUtil.zAdd("setSort","pingPong",16);
+		Set<Object> setZ=redisUtil.rangeByScore("setSort",-5,1);
+		Assert.assertEquals(setZ.size(),0);
+	}
+	@Test
+	public void RediszAddscorebiggerSuccess() {
+		redisUtil.zAdd("setSort","basketball",12);
+		redisUtil.zAdd("setSort","football",2);
+		redisUtil.zAdd("setSort","baseball",24);
+		redisUtil.zAdd("setSort","pingPong",16);
+		Set<Object> setZ=redisUtil.rangeByScore("setSort",5,1);
+		System.out.println(setZ);
+		Assert.assertEquals(setZ.size(),0);
+	}
 	@Test
 	public void test() {
 		/*redisTemplate.opsForValue().set("foo", "bar");
